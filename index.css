@@ -1,0 +1,22 @@
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(65, 25px); /* 20 squares in each row */
+    grid-template-rows: repeat(30, 25px);  /* 20 squares in each column */
+    gap: 2px; /* space between squares */
+}
+
+.square {
+    width: 25px;
+    height: 25px;
+    background-color: #3498db; /* Color of the square */
+    border: 1px solid #2980b9; /* Border color */
+    font-size: 12px;
+}
+
+.active-square {
+    width: 25px;
+    height: 25px;
+    background-color: #db347f; /* Color of the square */
+    border: 1px solid #2980b9; /* Border color */
+    font-size: 12px;
+}

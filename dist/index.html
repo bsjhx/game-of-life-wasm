@@ -3,11 +3,12 @@
 <head>
     <meta charset="utf-8" />
     <title>Yew App</title>
-<link rel="modulepreload" href="/game-of-life-8d90256008d87db2.js" crossorigin="anonymous" integrity="sha384-2VQLKdszdLRJaabe0luNX2r6R0xLmq8foWaQmkeG7gqy46jWVvB7jbA67uLENZc5"><link rel="preload" href="/game-of-life-8d90256008d87db2_bg.wasm" crossorigin="anonymous" integrity="sha384-VNyRSEVQKHcqDfCMV6iqFnbLzNUivZ/SaT/ltxy+exXJjSMb8NbiwzDUzNU0qPzT" as="fetch" type="application/wasm"></head>
+    <link rel="stylesheet" href="/index-68b3bd9f172f959e.css" integrity="sha384-6bUeiUnIIfufMQ2j4K2GM834C4tyBPcvhyfJsheWsWBzRH2dMOMl0rZd/ZSd12AE"/>
+<link rel="modulepreload" href="/game-of-life-a2e1fbd34dbff524.js" crossorigin="anonymous" integrity="sha384-c/yT0lDnhy0htFutHLTQHrJS2bHxd6CNHRucGjANaF60ts2PIlU6Bgebw9L0Zu12"><link rel="preload" href="/game-of-life-a2e1fbd34dbff524_bg.wasm" crossorigin="anonymous" integrity="sha384-W0VaE8Rl3Ybwsa7Bl7ZzoHwTrmWb3PpBzMCQeyzsKxwZ6bG6GO02aJpH+OrRxHuW" as="fetch" type="application/wasm"></head>
 <body>
 <script type="module">
-import init, * as bindings from '/game-of-life-8d90256008d87db2.js';
-const wasm = await init({ module_or_path: '/game-of-life-8d90256008d87db2_bg.wasm' });
+import init, * as bindings from '/game-of-life-a2e1fbd34dbff524.js';
+const wasm = await init({ module_or_path: '/game-of-life-a2e1fbd34dbff524_bg.wasm' });
 
 
 window.wasmBindings = bindings;
