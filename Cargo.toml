@@ -5,3 +5,4 @@ edition = "2024"
 
 [dependencies]
 yew = { version = "0.21", features = ["csr"] }
+web-sys = "0.3.77"
