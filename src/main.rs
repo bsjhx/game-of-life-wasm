@@ -4,24 +4,39 @@ use yew::prelude::*;
 
 #[function_component(App)]
 fn app() -> Html {
+    let squares = squares().iter().map(
+        |s| {
+            if s.is_alive {
+                active_square()
+            } else {
+                square()
+            }
+        }
+    ).collect::<Html>();
+
     html! {
         <div class="grid-container">
-            {squares()}
+            {squares}
         </div>
     }
 }
 
-fn squares() -> Vec<Html> {
+fn squares() -> Vec<Square> {
     let mut result = vec![];
-    for _i in 0..1950 {
-        if _i > 150 && _i < 1200 {
-            result.push(active_square())
+    for i in 0..1950 {
+        if i % 7 == 0 {
+            result.push(Square { id: i, is_alive: true })
         } else {
-            result.push(square())
+            result.push(Square { id: i, is_alive: false })
         }
     }
 
     result
+}
+
+struct Square {
+    id: usize,
+    is_alive: bool
 }
 
 fn square() -> Html {
