@@ -1,3 +1,7 @@
+struct Board {
+    fields: Vec<Vec<bool>>
+}
+
 fn init_board(size: usize) -> Vec<Vec<bool>> {
     vec![vec![false; size]; size]
 }

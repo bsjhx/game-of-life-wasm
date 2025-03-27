@@ -3,8 +3,8 @@ use yew::{function_component, html, Callback, Html, Properties};
 
 #[derive(Clone, PartialEq, Debug)]
 pub struct Square {
-    pub(crate) id: usize,
-    pub(crate) is_alive: bool,
+    pub id: usize,
+    pub is_alive: bool,
 }
 
 #[derive(Properties, PartialEq)]
@@ -18,21 +18,20 @@ pub fn squares_list(SquareListProps { squares, on_click }: &SquareListProps) -> 
     squares
         .iter()
         .map(|s| {
-            let on_video_select = {
+            let on_square_click = {
                 let on_click = on_click.clone();
                 let mut s = s.clone();
                 Callback::from(move |_| on_click.emit(s.clone()))
             };
 
             if s.is_alive {
-                active_square(on_video_select)
+                alive_square(on_square_click)
             } else {
-                square(on_video_select)
+                dead_square(on_square_click)
             }
         })
         .collect()
 }
-
 
 pub fn squares_generator() -> Vec<Square> {
     let mut result = vec![];
@@ -46,14 +45,14 @@ pub fn squares_generator() -> Vec<Square> {
     result
 }
 
-fn square(on_video_select: Callback<MouseEvent>) -> Html {
+fn dead_square(on_square_click: Callback<MouseEvent>) -> Html {
     html! {
-        <div class="square" onclick={on_video_select}></div>
+        <div class="square" onclick={on_square_click}></div>
     }
 }
 
-fn active_square(on_video_select: Callback<MouseEvent>) -> Html {
+fn alive_square(on_square_click: Callback<MouseEvent>) -> Html {
     html! {
-        <div class="active-square" onclick={on_video_select}></div>
+        <div class="alive-square" onclick={on_square_click}></div>
     }
 }

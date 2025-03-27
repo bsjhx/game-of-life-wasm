@@ -2,7 +2,12 @@ mod board;
 mod ui;
 
 use yew::prelude::*;
+use crate::ui::buttons::Buttons;
 use crate::ui::square::{squares_generator, Square, SquaresList};
+
+fn main() {
+    yew::Renderer::<App>::new().render();
+}
 
 #[function_component(App)]
 fn app() -> Html {
@@ -20,12 +25,11 @@ fn app() -> Html {
     };
 
     html! {
+        <div>
         <div class="grid-container">
             <SquaresList squares={(*squares).clone()} on_click={toggle_square} />
         </div>
+        <Buttons />
+        </div>
     }
-}
-
-fn main() {
-    yew::Renderer::<App>::new().render();
 }

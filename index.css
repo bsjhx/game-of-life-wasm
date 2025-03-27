@@ -13,7 +13,7 @@
     font-size: 12px;
 }
 
-.active-square {
+.alive-square {
     width: 25px;
     height: 25px;
     background-color: #db347f; /* Color of the square */
