@@ -1,3 +1,4 @@
+use log::info;
 use web_sys::MouseEvent;
 use yew::{function_component, html, Callback, Html, Properties};
 

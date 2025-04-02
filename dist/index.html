@@ -3,17 +3,12 @@
 <head>
     <meta charset="utf-8" />
     <title>Yew App</title>
-    <link rel="stylesheet" href="/index-b499bd138462633d.css" integrity="sha384-UgBcVOkThZuq+YuMdsCXKX/P9C4ZmKVrryKoMnVQ/PfVHhGN3o66PzUHX6Yibppd"/>
-    <link href="https://cdn.jsdelivr.net/npm/beercss@3.9.7/dist/cdn/beer.min.css" rel="stylesheet">
-
-    <script type="module" src="https://cdn.jsdelivr.net/npm/beercss@3.9.7/dist/cdn/beer.min.js"></script>
-
-    <script type="module" src="https://cdn.jsdelivr.net/npm/material-dynamic-colors@1.1.2/dist/cdn/material-dynamic-colors.min.js"></script>
-<link rel="modulepreload" href="/game-of-life-29b122d561906749.js" crossorigin="anonymous" integrity="sha384-fgFjWDdhDAcw669ToZoVPcKHUv/XFWw49lTEb4oPzpGi9SEu7FERq4PnQSxYOQw5"><link rel="preload" href="/game-of-life-29b122d561906749_bg.wasm" crossorigin="anonymous" integrity="sha384-ZF5htykC7n4OLxER5UDqQNg4M2AdKalZZTrQKQ/Ivl/nZgzY9zNrJv+msoo1ifCF" as="fetch" type="application/wasm"></head>
+    <link rel="stylesheet" href="/index-f5a09392c4fe0e51.css" integrity="sha384-9CzRCqTed1XGOecQJWkSK71LilEJ6Gb5t85rAnelMk9TbvFNp6fXwVHpxF9E3TQD"/>
+<link rel="modulepreload" href="/game-of-life-eb46a287b21c3085.js" crossorigin="anonymous" integrity="sha384-YmJeLXkcTCHDoXDRta/EVQL8wdQSAqWDb3+AUDHpo00HW7HmMfnXm+ZAvBeeQDXN"><link rel="preload" href="/game-of-life-eb46a287b21c3085_bg.wasm" crossorigin="anonymous" integrity="sha384-nSwWw/haoNGYcqDZoDPIu0sImSRE53rE/71rcmgD4LVU92kWCW3bN3HGDvZ7IQ/K" as="fetch" type="application/wasm"></head>
 <body>
 <script type="module">
-import init, * as bindings from '/game-of-life-29b122d561906749.js';
-const wasm = await init({ module_or_path: '/game-of-life-29b122d561906749_bg.wasm' });
+import init, * as bindings from '/game-of-life-eb46a287b21c3085.js';
+const wasm = await init({ module_or_path: '/game-of-life-eb46a287b21c3085_bg.wasm' });
 
 
 window.wasmBindings = bindings;
