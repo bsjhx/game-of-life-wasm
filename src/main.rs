@@ -17,9 +17,9 @@ fn app() -> Html {
 
     let toggle_square = {
         let squares = squares.clone();
-        Callback::from(move |clicked_square: Square| {
+        Callback::from(move |id: usize| {
             let mut new_squares = (*squares).clone();
-            if let Some(square) = new_squares.iter_mut().find(|sq| sq.id == clicked_square.id) {
+            if let Some(square) = new_squares.iter_mut().find(|sq| sq.id == id) {
                 square.is_alive = !square.is_alive;
             }
             squares.set(new_squares);

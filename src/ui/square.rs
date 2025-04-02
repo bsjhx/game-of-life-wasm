@@ -11,7 +11,7 @@ pub struct Square {
 #[derive(Properties, PartialEq)]
 pub struct SquareListProps {
     pub(crate) squares: Vec<Square>,
-    pub(crate) on_click: Callback<Square>,
+    pub(crate) on_click: Callback<usize>,
 }
 
 #[function_component(SquaresList)]
@@ -21,8 +21,8 @@ pub fn squares_list(SquareListProps { squares, on_click }: &SquareListProps) -> 
         .map(|s| {
             let on_square_click = {
                 let on_click = on_click.clone();
-                let mut s = s.clone();
-                Callback::from(move |_| on_click.emit(s.clone()))
+                let id = s.id;
+                Callback::from(move |_| on_click.emit(id))
             };
 
             if s.is_alive {

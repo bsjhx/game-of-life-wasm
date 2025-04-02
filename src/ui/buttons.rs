@@ -1,4 +1,3 @@
-use log::info;
 use yew::{Callback, Html, Properties, function_component, html};
 
 #[derive(Properties, PartialEq)]
