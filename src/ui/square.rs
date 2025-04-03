@@ -1,4 +1,3 @@
-use log::info;
 use web_sys::MouseEvent;
 use yew::{function_component, html, Callback, Html, Properties};
 
@@ -36,7 +35,7 @@ pub fn squares_list(SquareListProps { squares, on_click }: &SquareListProps) -> 
 
 pub fn squares_generator() -> Vec<Square> {
     let mut result = vec![];
-    for i in 0..1950 {
+    for i in 0..25 {
         result.push(Square {
             id: i,
             is_alive: false,

@@ -3,6 +3,7 @@ mod ui;
 
 use log::info;
 use yew::prelude::*;
+use crate::board::{calculate_next_frame, display_board};
 use crate::ui::buttons::Buttons;
 use crate::ui::square::{squares_generator, Square, SquaresList};
 
@@ -27,19 +28,50 @@ fn app() -> Html {
     };
 
     let next_frame = {
-        Callback::from(|s| {
-            info!("Next frame");
+        let squares = squares.clone();
+        Callback::from(move |_| {
+            let values: Vec<bool> = squares.iter().map(|square| {
+                square.is_alive
+            }).collect();
+
+            let mut board: Vec<Vec<bool>> =vec![vec![false; 5]; 5];
+            let mut counter = 0;
+            for i in 0..5 {
+                for j in 0..5 {
+                    board[i][j] = *values.get(counter).unwrap();
+                    counter += 1;
+                }
+            }
+
+            display_board(&board);
+            info!("");
+            let new_board = calculate_next_frame(board);
+            info!("{} {}", new_board[0][0], new_board[0][1]);
+            info!("{} {}", new_board[1][0], new_board[1][1]);
+
+            counter = 0;
+            let mut new_squares = vec![];
+            for i in 0..5 {
+                for j in 0..5 {
+                    new_squares.push(Square {
+                        id: counter,
+                        is_alive:  new_board[i][j],
+                    });
+                    counter += 1;
+                }
+            }
+            squares.set(new_squares);
         })
     };
 
     let clear = {
-        Callback::from(|s| {
+        Callback::from(|_| {
             info!("Clear");
         })
     };
 
     let play = {
-        Callback::from(|s| {
+        Callback::from(|_| {
             info!("Play");
         })
     };

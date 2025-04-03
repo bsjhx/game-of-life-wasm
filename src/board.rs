@@ -1,16 +1,10 @@
-struct Board {
+use log::{info};
+
+struct _Board {
     fields: Vec<Vec<bool>>
 }
 
-fn init_board(size: usize) -> Vec<Vec<bool>> {
-    vec![vec![false; size]; size]
-}
-
-fn color_pixel(board: &mut Vec<Vec<bool>>, i: usize, j: usize) {
-    board[i][j] = true;
-}
-
-fn calculate_next_frame(board: Vec<Vec<bool>>) -> Vec<Vec<bool>> {
+pub fn calculate_next_frame(board: Vec<Vec<bool>>) -> Vec<Vec<bool>> {
     let directions: Vec<(isize, isize)> = vec![
         (-1, -1),
         (-1, 0),
@@ -25,11 +19,11 @@ fn calculate_next_frame(board: Vec<Vec<bool>>) -> Vec<Vec<bool>> {
     let mut new_board =  init_board(board.len());
 
     for i in 0..board.len() {
-        for j in 0..board[i].len() {
+        for j in 0..board[0].len() {
             let mut number_of_alive_cells = 0;
 
             for direction in directions.iter() {
-                let new_ij = get_neighbor(i, j, direction.0, direction.1, board.len(), board.len());
+                let new_ij = get_neighbor(i, j, direction.0, direction.1, board.len(), board[0].len());
 
                 if let Some((new_i, new_j)) = new_ij {
                     if board[new_i][new_j] {
@@ -50,13 +44,17 @@ fn calculate_next_frame(board: Vec<Vec<bool>>) -> Vec<Vec<bool>> {
     new_board
 }
 
-fn display_board(board: &Vec<Vec<bool>>) {
-    println!();
+fn init_board(size: usize) -> Vec<Vec<bool>> {
+    vec![vec![false; size]; size]
+}
+
+pub fn display_board(board: &Vec<Vec<bool>>) {
+    info!("");
     for i in 0..board.len() {
-        for j in 0..board[i].len() {
-            print!("{}", if board[i][j] { "[X]" } else { "[ ]" });
+        for j in 0..board[0].len() {
+            info!("{}", if board[i][j] { "[X]" } else { "[ ]" });
         }
-        println!()
+        info!("");
     }
 }
 
@@ -145,5 +143,9 @@ mod test {
 
         board = calculate_next_frame(board);
         display_board(&board);
+    }
+
+    fn color_pixel(board: &mut Vec<Vec<bool>>, i: usize, j: usize) {
+        board[i][j] = true;
     }
 }

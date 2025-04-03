@@ -1,7 +1,7 @@
 .grid-container {
     display: grid;
-    grid-template-columns: repeat(65, 15px); /* 20 squares in each row */
-    grid-template-rows: repeat(30, 15px);  /* 20 squares in each column */
+    grid-template-columns: repeat(5, 15px); /* 20 squares in each row */
+    grid-template-rows: repeat(5, 15px);  /* 20 squares in each column */
     gap: 2px; /* space between squares */
 }
 
