@@ -14,8 +14,8 @@
 }
 
 .alive-square {
-    width: 25px;
-    height: 25px;
+    width: 15px;
+    height: 15px;
     background-color: #db347f; /* Color of the square */
     border: 1px solid #2980b9; /* Border color */
     font-size: 12px;
