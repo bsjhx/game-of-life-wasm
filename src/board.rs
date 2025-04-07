@@ -1,9 +1,5 @@
 use log::{info};
 
-struct _Board {
-    fields: Vec<Vec<bool>>
-}
-
 pub fn calculate_next_frame(board: Vec<Vec<bool>>) -> Vec<Vec<bool>> {
     let directions: Vec<(isize, isize)> = vec![
         (-1, -1),

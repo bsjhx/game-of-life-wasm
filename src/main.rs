@@ -1,5 +1,6 @@
 mod board;
 mod ui;
+mod board_calculator;
 
 use log::info;
 use yew::prelude::*;
