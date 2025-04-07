@@ -24,33 +24,31 @@ impl Board {
         let mut next_board = Board::new();
 
         for cell in &self.cells {
-
+            for direction in DIRECTIONS {
+                let coords = cell.add(&direction);
+                let count = self.count_alive_neighbors(&coords);
+                if self.is_cell_alive(&coords) && count == 2 {
+                    next_board.revive_cell(&coords);
+                } else if count == 3 {
+                    next_board.revive_cell(&coords)
+                }
+            }
         }
 
-        todo!()
+        next_board
     }
 
-    // fn will_cell_survived(&self, x: usize, y: usize) -> bool {
-    //     let mut counter = 0;
-    //     for DIRECTION in DIRECTIONS {
-    //         if self.is_cell_alive()
-    //     }
-    //
-    //     false
-    //
-    // }
-
-    fn revive_cell(&mut self, cell: &Coords) {
-        if !self.is_cell_alive(cell) {
-            self.cells.push(Coords::new(cell.x, cell.y));
+    fn revive_cell(&mut self, cell_coords: &Coords) {
+        if !self.is_cell_alive(cell_coords) {
+            self.cells.push(Coords::of(cell_coords));
         }
     }
 
-    fn kill_cell(&mut self, cell: &Coords) {
+    fn kill_cell(&mut self, cell_coords: &Coords) {
         let index = self
             .cells
             .iter()
-            .position(|coord| *coord == Coords::new(cell.x, cell.y));
+            .position(|coord| *coord == Coords::of(cell_coords));
         if let Some(index) = index {
             self.cells.remove(index);
         }
@@ -84,12 +82,57 @@ mod test {
     use crate::board_calculator::coords::Coords;
 
     #[test]
-    fn test_new_board() {
-        // given and when
-        let board = Board::new();
+    fn test_next_board_rectangle_2_x_2() {
+        // given
+        let mut board = Board::new();
+
+        // when draw rectangle
+        board.revive_cell(&Coords::new(0, 0));
+        board.revive_cell(&Coords::new(0, 1));
+        board.revive_cell(&Coords::new(1, 0));
+        board.revive_cell(&Coords::new(1, 1));
+        assert_eq!(4, board.cells.len());
+
+        // then next board should still contain same rectangle
+        let actual_board = board.next_board();
+        assert_eq!(4, actual_board.cells.len());
+        assert_eq!(true, actual_board.is_cell_alive(&Coords::new(0, 0)));
+        assert_eq!(true, actual_board.is_cell_alive(&Coords::new(0, 1)));
+        assert_eq!(true, actual_board.is_cell_alive(&Coords::new(1, 0)));
+        assert_eq!(true, actual_board.is_cell_alive(&Coords::new(1, 1)));
+    }
+
+    #[test]
+    fn test_next_board_line_1_x_3() {
+        // given
+        let mut board = Board::new();
+
+        // when draw rectangle
+        board.revive_cell(&Coords::new(0, 0));
+        board.revive_cell(&Coords::new(0, 1));
+        board.revive_cell(&Coords::new(0, 2));
+        assert_eq!(3, board.cells.len());
 
         // then
-        assert_eq!(board.cells.len(), 0);
+        let actual_board = board.next_board();
+        assert_eq!(3, actual_board.cells.len());
+        assert_eq!(true, actual_board.is_cell_alive(&Coords::new(-1, 1)));
+        assert_eq!(true, actual_board.is_cell_alive(&Coords::new(0, 1)));
+        assert_eq!(true, actual_board.is_cell_alive(&Coords::new(1, 1)));
+
+        // then
+        let actual_board = actual_board.next_board();
+        assert_eq!(3, actual_board.cells.len());
+        assert_eq!(true, actual_board.is_cell_alive(&Coords::new(0, 0)));
+        assert_eq!(true, actual_board.is_cell_alive(&Coords::new(0, 1)));
+        assert_eq!(true, actual_board.is_cell_alive(&Coords::new(0, 2)));
+
+        // then
+        let actual_board = actual_board.next_board();
+        assert_eq!(3, actual_board.cells.len());
+        assert_eq!(true, actual_board.is_cell_alive(&Coords::new(-1, 1)));
+        assert_eq!(true, actual_board.is_cell_alive(&Coords::new(0, 1)));
+        assert_eq!(true, actual_board.is_cell_alive(&Coords::new(1, 1)));
     }
 
     #[test]
@@ -115,51 +158,4 @@ mod test {
         assert_eq!(board.is_cell_alive(&cell), false);
     }
 
-    #[test]
-    fn test_neighbor_count() {
-        // given
-        let mut board = Board::new();
-        let cell00 = Coords::new(0, 0);
-        let cell01 = Coords::new(0, 1);
-        let cell10 = Coords::new(-1, 0);
-        let cell11 = Coords::new(-1, 1);
-
-        // when & then
-        let actual = board.count_alive_neighbors(&cell00);
-        assert_eq!(0, actual);
-
-        // when & then
-        board.revive_cell(&cell01);
-        let actual = board.count_alive_neighbors(&cell00);
-        assert_eq!(1, actual);
-
-        // when revive rectangle 2x2
-        board.revive_cell(&cell00);
-        board.revive_cell(&cell01);
-        board.revive_cell(&cell10);
-        board.revive_cell(&cell11);
-
-        // then
-        let actual = board.count_alive_neighbors(&cell00);
-        assert_eq!(3, actual);
-
-        // when revive all cells around 0,0
-        board.kill_cell(&cell00);
-        for direction in DIRECTIONS {
-            board.revive_cell(&cell00.add(&direction));
-        }
-
-        // then
-        let actual = board.count_alive_neighbors(&cell00);
-        assert_eq!(8, actual);
-
-        // when kill some of the neighbors
-        board.kill_cell(&cell01);
-        board.kill_cell(&cell10);
-        board.kill_cell(&cell11);
-
-        // then
-        let actual = board.count_alive_neighbors(&cell00);
-        assert_eq!(5, actual);
-    }
 }

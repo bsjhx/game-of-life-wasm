@@ -9,6 +9,10 @@ impl Coords {
         Coords { x, y }
     }
 
+    pub const fn of(coords: &Coords) -> Coords {
+        Coords { x: coords.x, y: coords.y }
+    }
+
     pub fn add(&self, other: &Coords) -> Coords {
         Coords::new(self.x + other.x, self.y + other.y)
     }
