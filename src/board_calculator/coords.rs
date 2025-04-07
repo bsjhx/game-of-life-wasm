@@ -5,7 +5,11 @@ pub struct Coords {
 }
 
 impl Coords {
-    pub fn new(x: isize, y: isize) -> Coords {
+    pub const fn new(x: isize, y: isize) -> Coords {
         Coords { x, y }
+    }
+
+    pub fn add(&self, other: &Coords) -> Coords {
+        Coords::new(self.x + other.x, self.y + other.y)
     }
 }
