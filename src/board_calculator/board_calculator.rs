@@ -67,8 +67,8 @@ impl Board {
     fn count_alive_neighbors(&self, cell_coords: &Coords) -> u8 {
         let mut count = 0;
 
-        for DIRECTION in DIRECTIONS {
-            let neighbor_cell = cell_coords.add(&DIRECTION);
+        for direction in DIRECTIONS {
+            let neighbor_cell = cell_coords.add(&direction);
             if self.is_cell_alive(&neighbor_cell) {
                 count += 1;
             }

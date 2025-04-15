@@ -1,4 +1,3 @@
-mod board;
 mod ui;
 mod board_calculator;
 
@@ -23,11 +22,11 @@ fn app() -> Html {
         let board = board.clone();
         Callback::from(move |coords: (isize, isize)| {
             let mut new_board = (*board).clone();
-            info!("clicked square {}:{}", coords.0, coords.1);
-            if new_board.is_cell_alive(&Coords::from_tuple(&coords)) {
-                new_board.kill_cell(&Coords::from_tuple(&coords));
+            let coords = &Coords::from_tuple(&coords);
+            if new_board.is_cell_alive(coords) {
+                new_board.kill_cell(coords);
             } else {
-                new_board.revive_cell(&Coords::from_tuple(&coords));
+                new_board.revive_cell(coords);
             }
             info!("alive cells in board {:?}", new_board.cells);
             board.set(new_board);
