@@ -1,12 +1,14 @@
-mod ui;
 mod board_calculator;
+mod ui;
 
-use log::info;
-use yew::prelude::*;
 use crate::board_calculator::board_calculator::Board;
 use crate::board_calculator::coords::Coords;
 use crate::ui::buttons::Buttons;
-use crate::ui::square::{SquaresList};
+use crate::ui::square::SquaresList;
+use log::info;
+use yew::prelude::*;
+
+const BOARD_SIZE: usize = 25;
 
 fn main() {
     wasm_logger::init(wasm_logger::Config::default());
@@ -15,7 +17,7 @@ fn main() {
 
 #[function_component(App)]
 fn app() -> Html {
-    let board = Board::new();
+    let board = Board::new(BOARD_SIZE);
     let board = use_state(|| board);
 
     let toggle_square = {
@@ -28,7 +30,6 @@ fn app() -> Html {
             } else {
                 new_board.revive_cell(coords);
             }
-            info!("alive cells in board {:?}", new_board.cells);
             board.set(new_board);
         })
     };
@@ -54,11 +55,11 @@ fn app() -> Html {
     };
 
     html! {
-        <div>
-        <div class="grid-container">
-            <SquaresList board={board.clone()} on_click={toggle_square} />
-        </div>
-        <Buttons on_next_frame={next_frame} on_clear={clear} on_play={play} />
+        <div style={format!("--board-size: {};", BOARD_SIZE)}>
+            <div class="grid-container">
+                <SquaresList board={board.clone()} on_click={toggle_square} />
+            </div>
+            <Buttons on_next_frame={next_frame} on_clear={clear} on_play={play} />
         </div>
     }
 }

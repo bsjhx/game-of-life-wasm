@@ -14,16 +14,17 @@ const DIRECTIONS: [Coords;8] = [
 
 #[derive(Properties, PartialEq, Clone)]
 pub struct Board {
-    pub(crate) cells: Vec<Coords>,
+    pub cells: Vec<Coords>,
+    pub board_size: usize,
 }
 
 impl Board {
-    pub fn new() -> Board {
-        Board { cells: vec![] }
+    pub fn new(board_size: usize) -> Board {
+        Board { cells: vec![], board_size}
     }
 
     pub fn next_board(&self) -> Board {
-        let mut next_board = Board::new();
+        let mut next_board = Board::new(self.board_size);
 
         for cell in &self.cells {
             for direction in DIRECTIONS {
@@ -86,7 +87,7 @@ mod test {
     #[test]
     fn test_next_board_rectangle_2_x_2() {
         // given
-        let mut board = Board::new();
+        let mut board = Board::new(10);
 
         // when draw rectangle
         board.revive_cell(&Coords::new(0, 0));
@@ -107,7 +108,7 @@ mod test {
     #[test]
     fn test_next_board_line_1_x_3() {
         // given
-        let mut board = Board::new();
+        let mut board = Board::new(10);
 
         // when draw rectangle
         board.revive_cell(&Coords::new(0, 0));
@@ -140,7 +141,7 @@ mod test {
     #[test]
     fn test_revive_and_kill_cell() {
         // given and when
-        let mut board = Board::new();
+        let mut board = Board::new(10);
 
         assert_eq!(board.cells.len(), 0);
         let cell = Coords::new(0, 0);

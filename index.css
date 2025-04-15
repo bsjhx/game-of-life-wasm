@@ -1,7 +1,11 @@
+:root {
+    --board-size: 30
+}
+
 .grid-container {
     display: grid;
-    grid-template-columns: repeat(30, 16px);
-    grid-template-rows: repeat(30, 16px);
+    grid-template-columns: repeat(var(--board-size), 16px);
+    grid-template-rows: repeat(var(--board-size), 16px);
     gap: 1px;
     background-color: #111;
     padding: 10px;
@@ -14,7 +18,7 @@
 .alive-square {
     width: 16px;
     height: 16px;
-    font-size: 0; /* no text spacing issues */
+    font-size: 0;
     border-radius: 2px;
     transition: background-color 0.2s ease, transform 0.1s ease;
     box-shadow: inset 0 0 1px rgba(255, 255, 255, 0.05);

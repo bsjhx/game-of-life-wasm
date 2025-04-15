@@ -1,4 +1,3 @@
-use log::info;
 use crate::board_calculator::board_calculator::Board;
 use crate::board_calculator::coords::Coords;
 use web_sys::MouseEvent;
@@ -19,14 +18,13 @@ pub struct SquareListProps {
 
 #[function_component(SquaresList)]
 pub fn squares_list(SquareListProps { board, on_click }: &SquareListProps) -> Html {
-    (0..30).flat_map(|i| {
-        (0..30).map(move |j| {
+    (0..board.board_size as isize).flat_map(|i| {
+        (0..board.board_size as isize).map(move |j| {
             let on_square_click = {
                 let on_click = on_click.clone();
                 Callback::from(move |_| on_click.emit((i, j)))
             };
             if board.is_cell_alive(&Coords::new(i, j)) {
-                info!("zywe: {}:{}", i, j);
                 alive_square(on_square_click)
             } else {
                 dead_square(on_square_click)
