@@ -8,5 +8,3 @@ Start project:
 ```
 
 ## TODO
-
-- [ ] refactor size (it should be anyway configurable)

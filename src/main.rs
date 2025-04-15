@@ -43,8 +43,9 @@ fn app() -> Html {
     };
 
     let clear = {
-        Callback::from(|_| {
-            info!("Clear");
+        let board = board.clone();
+        Callback::from(move |_| {
+            board.set(Board::new(BOARD_SIZE));
         })
     };
 
