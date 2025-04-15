@@ -9,6 +9,4 @@ Start project:
 
 ## TODO
 
-- [ ] refactor board
-- [ ] refactor using board
 - [ ] refactor size (it should be anyway configurable)

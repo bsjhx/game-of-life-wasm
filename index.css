@@ -8,15 +8,17 @@
 .square {
     width: 15px;
     height: 15px;
-    background-color: #3498db;
-    border: 1px solid #2980b9;
+    background-color: #e6e7ea;
+    border: 1px solid #1f1f21;
     font-size: 12px;
+    padding: 1px;
 }
 
 .alive-square {
     width: 15px;
     height: 15px;
-    background-color: #db347f;
-    border: 1px solid #2980b9;
+    background-color: #439a46;
+    border: 1px solid #1f1f21;
     font-size: 12px;
+    padding: 1px;
 }
