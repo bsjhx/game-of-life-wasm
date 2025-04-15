@@ -1,2 +1,2 @@
-mod board_calculator;
-mod coords;
+pub mod board_calculator;
+pub mod coords;

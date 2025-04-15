@@ -1,4 +1,4 @@
-#[derive(Hash, Eq, PartialEq, Debug)]
+#[derive(Hash, Eq, PartialEq, Debug, Clone, Copy)]
 pub struct Coords {
     pub x: isize,
     pub y: isize,
@@ -7,6 +7,10 @@ pub struct Coords {
 impl Coords {
     pub const fn new(x: isize, y: isize) -> Coords {
         Coords { x, y }
+    }
+
+    pub const fn from_tuple(x: &(isize, isize)) -> Coords {
+        Coords { x: x.0, y: x.1 }
     }
 
     pub const fn of(coords: &Coords) -> Coords {

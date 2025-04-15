@@ -1,3 +1,4 @@
+use yew::Properties;
 use crate::board_calculator::coords::Coords;
 
 const DIRECTIONS: [Coords;8] = [
@@ -11,16 +12,17 @@ const DIRECTIONS: [Coords;8] = [
     Coords::new(1, 1),
 ];
 
-struct Board {
-    cells: Vec<Coords>,
+#[derive(Properties, PartialEq, Clone)]
+pub struct Board {
+    pub(crate) cells: Vec<Coords>,
 }
 
 impl Board {
-    fn new() -> Board {
+    pub fn new() -> Board {
         Board { cells: vec![] }
     }
 
-    fn next_board(&self) -> Board {
+    pub fn next_board(&self) -> Board {
         let mut next_board = Board::new();
 
         for cell in &self.cells {
@@ -38,13 +40,21 @@ impl Board {
         next_board
     }
 
-    fn revive_cell(&mut self, cell_coords: &Coords) {
+    pub fn is_cell_alive(&self, cell_coords: &Coords) -> bool {
+        let index = self
+            .cells
+            .iter()
+            .position(|coords| *coords == *cell_coords);
+        index.is_some()
+    }
+
+    pub fn revive_cell(&mut self, cell_coords: &Coords) {
         if !self.is_cell_alive(cell_coords) {
             self.cells.push(Coords::of(cell_coords));
         }
     }
 
-    fn kill_cell(&mut self, cell_coords: &Coords) {
+    pub fn kill_cell(&mut self, cell_coords: &Coords) {
         let index = self
             .cells
             .iter()
@@ -52,14 +62,6 @@ impl Board {
         if let Some(index) = index {
             self.cells.remove(index);
         }
-    }
-
-    fn is_cell_alive(&self, cell_coords: &Coords) -> bool {
-        let index = self
-            .cells
-            .iter()
-            .position(|coords| *coords == *cell_coords);
-        index.is_some()
     }
 
     fn count_alive_neighbors(&self, cell_coords: &Coords) -> u8 {
@@ -78,7 +80,7 @@ impl Board {
 
 #[cfg(test)]
 mod test {
-    use crate::board_calculator::board_calculator::{Board, DIRECTIONS};
+    use crate::board_calculator::board_calculator::{Board};
     use crate::board_calculator::coords::Coords;
 
     #[test]

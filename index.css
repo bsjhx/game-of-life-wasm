@@ -1,22 +1,22 @@
 .grid-container {
     display: grid;
-    grid-template-columns: repeat(5, 15px); /* 20 squares in each row */
-    grid-template-rows: repeat(5, 15px);  /* 20 squares in each column */
-    gap: 2px; /* space between squares */
+    grid-template-columns: repeat(30, 15px);
+    grid-template-rows: repeat(30, 15px);
+    gap: 2px;
 }
 
 .square {
     width: 15px;
     height: 15px;
-    background-color: #3498db; /* Color of the square */
-    border: 1px solid #2980b9; /* Border color */
+    background-color: #3498db;
+    border: 1px solid #2980b9;
     font-size: 12px;
 }
 
 .alive-square {
     width: 15px;
     height: 15px;
-    background-color: #db347f; /* Color of the square */
-    border: 1px solid #2980b9; /* Border color */
+    background-color: #db347f;
+    border: 1px solid #2980b9;
     font-size: 12px;
 }
