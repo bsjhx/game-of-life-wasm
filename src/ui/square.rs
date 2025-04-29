@@ -18,8 +18,8 @@ pub struct SquareListProps {
 
 #[function_component(SquaresList)]
 pub fn squares_list(SquareListProps { board, on_click }: &SquareListProps) -> Html {
-    (0..board.board_size as isize).flat_map(|i| {
-        (0..board.board_size as isize).map(move |j| {
+    (0..board.y_size as isize).flat_map(|i| {
+        (0..board.x_size as isize).map(move |j| {
             let on_square_click = {
                 let on_click = on_click.clone();
                 Callback::from(move |_| on_click.emit((i, j)))

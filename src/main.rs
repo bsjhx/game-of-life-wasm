@@ -8,7 +8,8 @@ use crate::ui::square::SquaresList;
 use log::info;
 use yew::prelude::*;
 
-const BOARD_SIZE: usize = 25;
+const X_SIZE: usize = 10;
+const Y_SIZE: usize = 5;
 
 fn main() {
     wasm_logger::init(wasm_logger::Config::default());
@@ -17,7 +18,7 @@ fn main() {
 
 #[function_component(App)]
 fn app() -> Html {
-    let board = Board::new(BOARD_SIZE);
+    let board = Board::new(X_SIZE, Y_SIZE);
     let board = use_state(|| board);
 
     let toggle_square = {
@@ -45,7 +46,7 @@ fn app() -> Html {
     let clear = {
         let board = board.clone();
         Callback::from(move |_| {
-            board.set(Board::new(BOARD_SIZE));
+            board.set(Board::new(X_SIZE, Y_SIZE));
         })
     };
 
@@ -56,7 +57,7 @@ fn app() -> Html {
     };
 
     html! {
-        <div style={format!("--board-size: {};", BOARD_SIZE)}>
+        <div style={format!("--x-size: {}; --y-size: {};", X_SIZE, Y_SIZE)}>
             <div class="grid-container">
                 <SquaresList board={board.clone()} on_click={toggle_square} />
             </div>
