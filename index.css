@@ -1,22 +1,54 @@
+:root {
+    --x-size: 30;
+    --y-size: 30;
+}
+
 .grid-container {
     display: grid;
-    grid-template-columns: repeat(5, 15px); /* 20 squares in each row */
-    grid-template-rows: repeat(5, 15px);  /* 20 squares in each column */
-    gap: 2px; /* space between squares */
+    grid-template-columns: repeat(var(--x-size), 16px);
+    grid-template-rows: repeat(var(--y-size), 16px);
+    gap: 1px;
+    background-color: #111;
+    padding: 10px;
+    border: 2px solid #2b2b2e;
+    box-shadow: 0 0 20px rgba(0, 255, 100, 0.2);
+    user-select: none;
+}
+
+.square,
+.alive-square {
+    width: 16px;
+    height: 16px;
+    font-size: 0;
+    border-radius: 2px;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    box-shadow: inset 0 0 1px rgba(255, 255, 255, 0.05);
 }
 
 .square {
-    width: 15px;
-    height: 15px;
-    background-color: #3498db; /* Color of the square */
-    border: 1px solid #2980b9; /* Border color */
-    font-size: 12px;
+    background-color: #1e1e20;
+    border: 1px solid #2c2c2f;
 }
 
 .alive-square {
-    width: 15px;
-    height: 15px;
-    background-color: #db347f; /* Color of the square */
-    border: 1px solid #2980b9; /* Border color */
-    font-size: 12px;
+    background-color: #58d66c;
+    border: 1px solid #70ef81;
+    animation: pulse 0.4s ease-in-out;
+}
+
+.alive-square:hover {
+    transform: scale(1.2);
+    box-shadow: 0 0 4px rgba(88, 214, 108, 0.6);
+}
+
+.square:hover {
+    transform: scale(1.2);
+    box-shadow: 0 0 4px rgba(255, 255, 255, 0.2);
+    background-color: #276c32;
+}
+
+@keyframes pulse {
+    0% { background-color: #58d66c; }
+    50% { background-color: #6dfb83; }
+    100% { background-color: #58d66c; }
 }
