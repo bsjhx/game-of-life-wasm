@@ -5,7 +5,9 @@ use crate::board_calculator::board_calculator::Board;
 use crate::board_calculator::coords::Coords;
 use crate::ui::buttons::Buttons;
 use crate::ui::square::SquaresList;
+use gloo::events::EventListener;
 use log::info;
+use web_sys::window;
 use yew::prelude::*;
 
 const X_SIZE: usize = 25;
@@ -18,13 +20,31 @@ fn main() {
 
 #[function_component(App)]
 fn app() -> Html {
-    let board = Board::new(X_SIZE, Y_SIZE);
+    let size = use_state(|| {
+        (
+            window().unwrap().inner_width().unwrap().as_f64().unwrap() as u32,
+            window().unwrap().inner_height().unwrap().as_f64().unwrap() as u32,
+        )
+    });
+    {
+        let size = size.clone();
+        use_effect(move || {
+            let listener = EventListener::new(&window().unwrap(), "resize", move |_| {
+                let width = window().unwrap().inner_width().unwrap().as_f64().unwrap() as u32;
+                let height = window().unwrap().inner_height().unwrap().as_f64().unwrap() as u32;
+                size.set((width, height));
+            });
+            || drop(listener)
+        });
+    }
+
+    let board = Board::new(10, 10);
     let board = use_state(|| board);
 
     let toggle_square = toggle_cell(board.clone());
     let next_frame = next_frame(board.clone());
     let clear = clear_board(board.clone());
-    let play = play(board.clone());
+    let play = play(size.clone());
 
     html! {
         <div style={format!("--x-size: {}; --y-size: {};", X_SIZE, Y_SIZE)}>
@@ -65,8 +85,17 @@ fn clear_board(board: UseStateHandle<Board>) -> Callback<()> {
     })
 }
 
-fn play(_board: UseStateHandle<Board>) -> Callback<()> {
-    Callback::from(|_| {
-        info!("Play");
+fn play(size: UseStateHandle<(u32, u32)>) -> Callback<()> {
+    let size = size.clone();
+    Callback::from(move |_| {
+        info!(
+            "Play. Dimm: {:?}, Size: {:?}",
+            size,
+            calculate_board_size(*size)
+        );
     })
+}
+
+fn calculate_board_size(dimensions: (u32, u32)) -> (u32, u32) {
+    ((dimensions.0 / 16), (dimensions.1 / 16))
 }
